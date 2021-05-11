@@ -1,9 +1,17 @@
 import React from 'react';
 
-export const User = ({ user, onRemove }) => {
+export const User = ({ user, onRemove, onToggle }) => {
     return (
         <div>
-            <b>{user.username}</b>
+            <b
+                style={{
+                    cursor: 'pointer',
+                    color: user.active ? 'green' : 'black'
+                }}
+                onClick={() => onToggle(user.id)}
+                >
+                {user.username}
+            </b>
             <span>({user.email})</span>
             <button 
                 onClick={() => onRemove(user.id)}
@@ -14,11 +22,16 @@ export const User = ({ user, onRemove }) => {
     );
 }
 
-export const UserList = ({ users, onRemove }) => {
+export const UserList = ({ users, onRemove, onToggle }) => {
     return (
         <div>
             {users.map(user => (
-                <User user={user} key={user.id} onRemove={onRemove} />
+                <User 
+                    user={user} 
+                    key={user.id} 
+                    onRemove={onRemove} 
+                    onToggle={onToggle} 
+                    />
             ))}
         </div>
     );
